@@ -9,6 +9,7 @@
         height="45"
       />
     </RouterLink>
+    <h1>MyTasks</h1>
     <nav>
       <RouterLink to="/">Login</RouterLink>
     </nav>
@@ -23,6 +24,10 @@ header {
   padding: 20px;
   justify-content: space-between;
   height: var(--pageHeaderHeight);
+}
+
+h1 {
+  color: #FFF;
 }
 
 .router-link-active {

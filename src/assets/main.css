@@ -33,3 +33,9 @@ body {
   font-weight: normal;
   height: 100vh;
 }
+
+@media screen and (max-width: 1024px) {
+  #app {
+    height: 100%;
+  }
+}

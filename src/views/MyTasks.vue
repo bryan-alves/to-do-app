@@ -10,7 +10,6 @@ export default {
 
 <template>
   <main class="tasks">
-    <h1 class="tasks__title">MyTasks</h1>
     <div class="tasks__container">
       <TaskCardVue id="daily" title="Daily"/>
       <TaskCardVue id="to-do" title="To-Do"/>
@@ -25,6 +24,7 @@ export default {
   flex-direction: column;
   height: calc(100% - var(--pageHeaderHeight));
   padding: 30px;
+  overflow: hidden;
 
   &__title {
     text-align: center;
@@ -38,6 +38,12 @@ export default {
     gap: 50px;
     height: 100%;
     width: 100%;
+
+    @media screen and (max-width: 1024px) {
+      & {
+        flex-direction: column;
+      }
+    }
   }
 }
 </style>
