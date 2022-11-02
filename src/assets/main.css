@@ -1,5 +1,6 @@
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
+  --pageHeaderHeight: 85px;
   --vt-c-white: #ffffff;
   --vt-c-text-dark-1: var(--vt-c-white);
 }
@@ -30,5 +31,5 @@ body {
   margin: 0 auto;
   padding: 0rem;
   font-weight: normal;
+  height: 100vh;
 }
-

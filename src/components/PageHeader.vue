@@ -1,12 +1,3 @@
-<script setup>
-defineProps({
-  msg: {
-    type: String,
-    required: true,
-  },
-});
-</script>
-
 <template>
   <header>
     <RouterLink to="/">
@@ -31,6 +22,7 @@ header {
   display: flex;
   padding: 20px;
   justify-content: space-between;
+  height: var(--pageHeaderHeight);
 }
 
 .router-link-active {
