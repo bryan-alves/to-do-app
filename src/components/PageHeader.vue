@@ -1,0 +1,47 @@
+<script setup>
+defineProps({
+  msg: {
+    type: String,
+    required: true,
+  },
+});
+</script>
+
+<template>
+  <header>
+    <RouterLink to="/">
+      <img
+        alt="MyTasks logo"
+        class="logo"
+        src="@/assets/logo.png"
+        width="45"
+        height="45"
+      />
+    </RouterLink>
+    <nav>
+      <RouterLink to="/">Login</RouterLink>
+    </nav>
+  </header>
+</template>
+
+<style lang="scss" scoped>
+header {
+  align-items: center;
+  background: #1e1818;
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
+}
+
+.router-link-active {
+  height: 45px;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+@media (min-width: 1024px) {
+}
+</style>
