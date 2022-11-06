@@ -1,13 +1,13 @@
 <template>
   <div class="task-card">
-    <h2 class="task-card__title">{{ title }}</h2>
+    <h2 class="task-card__title" data-test="card-title">{{ title }}</h2>
     <div class="task-card__container">
       <form @submit.prevent="addTask()">
         <input type="text" name="" id="addTask" placeholder="Adicionar tarefa" v-model="newTaskName">
       </form>
       <div class="task-card__content">
-      <div class="task-card__list">
-        <div class="task-card__item" :key="id" v-for="({id,name}, index) in tasks">
+      <div class="task-card__list" data-test="card-list">
+        <div class="task-card__item" data-test="card-task" :key="id" v-for="({id,name}, index) in tasks">
           <input type="checkbox" name="" id="" @click="completeTask(id, index)">
           <span>{{name}}</span>
           <button @click="deleteTask(id)">X</button>
@@ -29,11 +29,6 @@ export default {
       default: "",
       required: true,
     },
-    type: {
-      type: String,
-      default: "",
-      required: true,
-    }
   },
   data() {
     return {
