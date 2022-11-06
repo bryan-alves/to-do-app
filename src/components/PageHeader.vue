@@ -11,7 +11,7 @@
     </RouterLink>
     <h1>MyTasks</h1>
     <nav>
-      <RouterLink to="/">Login</RouterLink>
+      <span></span>
     </nav>
   </header>
 </template>

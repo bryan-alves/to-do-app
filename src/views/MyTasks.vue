@@ -11,8 +11,7 @@ export default {
 <template>
   <main class="tasks">
     <div class="tasks__container">
-      <TaskCardVue id="daily" title="Daily"/>
-      <TaskCardVue id="to-do" title="To-Do"/>
+      <TaskCardVue id="to-do" type="todo" title="To-Do"/>
     </div>
   </main>
 </template>

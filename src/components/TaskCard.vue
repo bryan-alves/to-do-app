@@ -2,12 +2,15 @@
   <div class="task-card">
     <h2 class="task-card__title">{{ title }}</h2>
     <div class="task-card__container">
-      <input type="text" name="" id="" placeholder="Adicionar tarefa">
+      <form @submit.prevent="addTask()">
+        <input type="text" name="" id="addTask" placeholder="Adicionar tarefa" v-model="newTaskName">
+      </form>
       <div class="task-card__content">
       <div class="task-card__list">
-        <div class="task-card__item" v-for="item in [...Array(20).keys()]">
-          <input type="checkbox" name="" id="">
-          <span>item {{item}}</span>
+        <div class="task-card__item" :key="id" v-for="({id,name}, index) in tasks">
+          <input type="checkbox" name="" id="" @click="completeTask(id, index)">
+          <span>{{name}}</span>
+          <button @click="deleteTask(id)">X</button>
         </div>
       </div>
     </div>
@@ -16,14 +19,68 @@
 </template>
 
 <script>
+import axios from "axios"
+
 export default {
+  name: 'TaskCard',
   props: {
     title: {
       type: String,
       default: "",
       required: true,
     },
+    type: {
+      type: String,
+      default: "",
+      required: true,
+    }
   },
+  data() {
+    return {
+      tasks: [],
+      newTaskName: '',
+    }
+  },
+  async mounted() {
+    await this.getTasks()
+  },
+  methods: {
+    async addTask() {
+      await axios.post('http://localhost:3000/tasks', {
+        id: parseInt(Math.random() * 999999),
+        name: this.newTaskName,
+        completed: false,
+      })
+
+      await this.getTasks()
+      this.newTaskName = ''
+    },
+    async getTasks() {
+      try {
+        const result = await axios.get('http://localhost:3000/tasks')
+        this.tasks = result.data
+      } catch (error) {
+        console.log(error.response)
+      }
+    },
+    async completeTask(id, index) {
+      this.tasks[index].completed = true
+
+      try {
+        await axios.put(`http://localhost:3000/tasks/${id}`, this.tasks[index])
+      } catch (error) {
+        console.log(error.response)
+      }
+    },
+    async deleteTask(id) {
+      try {
+        await axios.delete('http://localhost:3000/tasks/' + id)
+        await this.getTasks()
+      } catch (error) {
+        console.log(error.response)
+      }
+    }
+  }
 };
 </script>
 
@@ -106,6 +163,10 @@ export default {
     }
   }
 
+  form {
+    display: flex;
+  }
+
   input[type=text] {
     margin: 15px;
     height: 48px;
@@ -113,6 +174,7 @@ export default {
     border: 1px solid #d1d1d1;
     padding: 0px 15px;
     outline-color: #5e5e5e;
+    width: 100%;
   }
 }
 </style>
