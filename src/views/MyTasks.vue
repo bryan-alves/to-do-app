@@ -34,15 +34,9 @@ export default {
 
   &__container {
     display: flex;
-    gap: 50px;
+    justify-content: center;
     height: 100%;
     width: 100%;
-
-    @media screen and (max-width: 1024px) {
-      & {
-        flex-direction: column;
-      }
-    }
   }
 }
 </style>

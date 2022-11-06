@@ -88,6 +88,7 @@ export default {
 .task-card {
   height: 100%;
   width: 100%;
+  max-width: 50%;
   background: rgb(189, 189, 189);
   padding: 10px 25px 25px;
   text-align: center;
@@ -111,7 +112,8 @@ export default {
     display: flex;
     flex-direction: column;
   }
-  &__content {display: flex;
+  &__content {
+    display: flex;
     flex-direction: column;
     height: calc(100% - 74px);
     padding: 15px;
