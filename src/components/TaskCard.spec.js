@@ -1,15 +1,9 @@
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi, vitest } from "vitest";
 import { flushPromises, mount } from "@vue/test-utils";
 import TaskCard from "./TaskCard.vue"
 import axios from "axios"
 
-vi.mock("axios", () => {
-  return {
-    default: {
-      get: vi.fn(),
-    },
-  };
-});
+vi.mock("axios");
 
 const mockData = [
   {
@@ -18,7 +12,7 @@ const mockData = [
     "id": 1
   },
   {
-    "completed": true,
+    "completed": false,
     "name": "Task 2",
     "id": 2
   },
@@ -31,6 +25,11 @@ const mountTaskCard = (title) => mount(TaskCard, {
 })
 
 describe('Task Card tests', () => {
+
+  afterEach(() => {
+    vitest.clearAllMocks()
+  })
+
   it('should mount component', () => {
     const wrapper = mountTaskCard()
     expect(wrapper).toBeTruthy()
@@ -66,5 +65,13 @@ describe('Task Card tests', () => {
     await flushPromises()
     const tasks = wrapper.findAll('[data-test="card-task"]')
     expect(tasks).toHaveLength(2)
+  })
+
+  it('should create new task', async () => {
+    const wrapper = mountTaskCard()
+    wrapper.find('[data-test="new-task"]').setValue('Task 3')
+    await wrapper.find('form').trigger('submit')
+    await flushPromises()
+    expect(axios.post).toHaveBeenCalled(1)
   })
 })

@@ -3,7 +3,7 @@
     <h2 class="task-card__title" data-test="card-title">{{ title }}</h2>
     <div class="task-card__container">
       <form @submit.prevent="addTask()">
-        <input type="text" name="" id="addTask" placeholder="Adicionar tarefa" v-model="newTaskName">
+        <input type="text" data-test="new-task" name="" id="addTask" placeholder="Adicionar tarefa" v-model="newTaskName">
       </form>
       <div class="task-card__content">
       <div class="task-card__list" data-test="card-list">
