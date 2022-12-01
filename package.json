@@ -6,7 +6,7 @@
     "test": "vitest",
     "test-ui": "vitest --ui",
     "coverage": "vitest run --coverage",
-    "coverage-ui": "vitest run --coverage --ui --lines",
+    "coverage-ui": "vitest run --coverage --ui",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"

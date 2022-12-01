@@ -7,10 +7,10 @@
       </form>
       <div class="task-card__content">
       <div class="task-card__list" data-test="card-list">
-        <div class="task-card__item" data-test="card-task" :key="id" v-for="({id,name}, index) in tasks">
-          <input type="checkbox" name="" id="" @click="completeTask(id, index)">
+        <div class="task-card__item" :class="{'task-card__item--concluded': completed}" data-test="card-task" :id="`task-${id}`" :key="id" v-for="({id,name, completed}, index) in tasks">
+          <input type="checkbox" :id="`complete-task-${id}`"  @click="completeTask(id, index)">
           <span>{{name}}</span>
-          <button @click="deleteTask(id)">X</button>
+          <button :id="`delete-task-${id}`" @click="deleteTask(id)">X</button>
         </div>
       </div>
     </div>
@@ -41,13 +41,15 @@ export default {
   },
   methods: {
     async addTask() {
-      await axios.post('http://localhost:3000/tasks', {
+      const task = {
         id: parseInt(Math.random() * 999999),
         name: this.newTaskName,
         completed: false,
-      })
+      }
 
-      await this.getTasks()
+      await axios.post('http://localhost:3000/tasks', task)
+
+      this.tasks.push(task)
       this.newTaskName = ''
     },
     async getTasks() {
@@ -71,6 +73,8 @@ export default {
       try {
         await axios.delete('http://localhost:3000/tasks/' + id)
         await this.getTasks()
+
+        this.tasks = this.tasks.filter((task) => task.id !== id)
       } catch (error) {
         console.log(error.response)
       }
@@ -147,11 +151,15 @@ export default {
   &__item {
     border: 1px solid #e3e3e3;
     border-radius: 8px;
-    background: #878787;
+    background: #e79696;
     height: 55px;
     display: flex;
     align-items: center;
     padding: 0px 15px;
+
+    &--concluded {
+      background: #5e935e!important;
+    }
 
     input {
       height: 25px;

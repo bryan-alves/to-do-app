@@ -72,6 +72,35 @@ describe('Task Card tests', () => {
     wrapper.find('[data-test="new-task"]').setValue('Task 3')
     await wrapper.find('form').trigger('submit')
     await flushPromises()
+
+    const tasks = wrapper.findAll('[data-test="card-task"]')
+
     expect(axios.post).toHaveBeenCalled(1)
+    expect(tasks.length).toBe(3)
+  })
+
+  it('should delete task and remove from the list', async () => {
+    const wrapper = mountTaskCard()
+    await flushPromises()
+    const buttonToDelete = wrapper.find('#delete-task-2')
+
+    await buttonToDelete.trigger('click')
+    await flushPromises()
+    const tasks = wrapper.findAll('[data-test="card-task"]')
+
+    expect(tasks.length).toBe(2)
+  })
+
+  it('should add class after concluded task', async () => {
+    const wrapper = mountTaskCard()
+    await flushPromises()
+
+    const concludedButton = wrapper.find('#complete-task-2')
+    await concludedButton.trigger('click')
+
+    const task = wrapper.find('#task-2').html()
+    console.log(task)
+
+    expect(task).toContain('task-card__item--concluded')
   })
 })
